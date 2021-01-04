@@ -134,3 +134,12 @@ dmypy.json
 /.idea/inspectionProfiles/Project_Default.xml
 /.idea/vcs.xml
 /.idea/webapp_project.iml
+/demo/migrations/__init__.py
+/demo/__init__.py
+/demo/admin.py
+/demo/apps.py
+/.idea/dataSources.xml
+/demo/models.py
+/requirements.txt
+/demo/tests.py
+/demo/views.py

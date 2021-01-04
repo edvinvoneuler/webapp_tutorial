@@ -9,6 +9,10 @@ from .models import Book
 from .serializers import BookSerializer
 
 
+# Here are a couple of examples of how to render raw HTML directly using Django.
+
+
+# Through a class that makes HTML strings and are passed directly into a response.
 class Another(View):
     books = Book.objects.all()
     if books:
@@ -24,11 +28,13 @@ class Another(View):
         return HttpResponse(self.output)
 
 
+# A function that uses a pre-defined HTML template (found in the templates folder), passes a data object to render
 def first(request):
     books = Book.objects.all()
     return render(request, 'first_template.html', {"books": books})
 
 
+# A ViewSet class for Django REST API to render entries/queryset into JSON objects.
 class BookViewSet(viewsets.ModelViewSet):
     serializer_class = BookSerializer
     queryset = Book.objects.all()

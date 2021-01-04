@@ -1,7 +1,6 @@
 from django.db import models
 
 
-# Create your models here.
 class Book(models.Model):
     title = models.CharField(max_length=36, blank=False, unique=True)
     description = models.TextField(max_length=256, blank=True)
@@ -15,3 +14,8 @@ class Book(models.Model):
 
     def __str__(self):
         return self.title
+
+
+# TODO: Om du vill får du lägga till lite relationer till nya objekt (t.ex. författare, karaktärer eller annat.)
+#  Jag har koll på django onetoone, onetomany och manytomany sedan innan så orkade inte göra den delen av tutorialen.
+#  Hur man serializeade dem för APIn var lite weird.

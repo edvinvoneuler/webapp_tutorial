@@ -28,11 +28,17 @@ class PlayerSessionLink(models.Model):
     session = models.ForeignKey(Session, on_delete=models.CASCADE, related_name='session_player_links')
     player = models.ForeignKey('Player', on_delete=models.PROTECT, related_name='player_session_links')
 
+    class Meta:
+        unique_together = (('player', 'session'),)
+
 
 class GameOwnership(models.Model):
     game = models.ForeignKey(Game, on_delete=models.CASCADE, related_name="game_ownership_link")
     player = models.ForeignKey('Player', on_delete=models.CASCADE, related_name="player_ownership_link")
     rating = models.IntegerField(null=True, blank=True, choices=[(1, "1"), (2, "2"), (3, "3"), (4, "4"), (5, "5")])
+
+    class Meta:
+        unique_together = (('player', 'game'),)
 
 
 class Player(models.Model):

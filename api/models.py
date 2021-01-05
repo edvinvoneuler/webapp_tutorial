@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 # Create your models here.
@@ -29,8 +30,8 @@ class PlayerSessionLink(models.Model):
 
 
 class GameOwnership(models.Model):
-    game = models.ForeignKey(Game, on_delete=models.PROTECT, related_name="game_ownership_link")
-    player = models.ForeignKey('Player', on_delete=models.PROTECT, related_name="player_ownership_link")
+    game = models.ForeignKey(Game, on_delete=models.CASCADE, related_name="game_ownership_link")
+    player = models.ForeignKey('Player', on_delete=models.CASCADE, related_name="player_ownership_link")
     rating = models.IntegerField(null=True, blank=True, choices=[(1, "1"), (2, "2"), (3, "3"), (4, "4"), (5, "5")])
 
 
@@ -39,6 +40,6 @@ class Player(models.Model):
     nickname = models.CharField(max_length=256)
 
     # Relationships
-    # user = models.ForeignKey(User) # TODO: Link django users with players or create from scratch (sounds stupid)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     sessions = models.ManyToManyField(Session, through=PlayerSessionLink, related_name="participating_players")
     owned_games = models.ManyToManyField(Game, through=GameOwnership, related_name="players_owning")

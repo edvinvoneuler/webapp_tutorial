@@ -12,6 +12,9 @@ class Game(models.Model):
     # TODO: Think about how to implement this, will it be provided through Steam API calls? If not, too manual.
     # genre = models.ForeignKey(Genre)
 
+    def __str__(self):
+        return self.name
+
 
 class Session(models.Model):
     # Attributes
@@ -49,3 +52,6 @@ class Player(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     sessions = models.ManyToManyField(Session, through=PlayerSessionLink, related_name="participating_players")
     owned_games = models.ManyToManyField(Game, through=GameOwnership, related_name="players_owning")
+
+    def __str__(self):
+        return f"{self.user.username} : {self.nickname}"

@@ -28,10 +28,17 @@ class PlayerSessionLink(models.Model):
     player = models.ForeignKey('Player', on_delete=models.PROTECT, related_name='player_session_links')
 
 
+class GameOwnership(models.Model):
+    game = models.ForeignKey(Game, on_delete=models.PROTECT, related_name="game_ownership_link")
+    player = models.ForeignKey('Player', on_delete=models.PROTECT, related_name="player_ownership_link")
+    rating = models.IntegerField(null=True, blank=True, choices=[(1, "1"), (2, "2"), (3, "3"), (4, "4"), (5, "5")])
+
+
 class Player(models.Model):
     # Attributes
     nickname = models.CharField(max_length=256)
 
     # Relationships
     # user = models.ForeignKey(User) # TODO: Link django users with players or create from scratch (sounds stupid)
-    sessions = models.ManyToManyField(Session, through=PlayerSessionLink)
+    sessions = models.ManyToManyField(Session, through=PlayerSessionLink, related_name="participating_players")
+    owned_games = models.ManyToManyField(Game, through=GameOwnership, related_name="players_owning")

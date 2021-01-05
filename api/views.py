@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from rest_framework import viewsets
+from rest_framework import viewsets, status
+from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from api.models import Game, Session, Player, PlayerSessionLink, GameOwnership
@@ -15,6 +16,14 @@ from api.serializers import (
 class GameViewSet(viewsets.ModelViewSet):
     queryset = Game.objects.all()
     serializer_class = GameSerializer
+
+    @action(detail=True, methods=['POST'])
+    def set_as_owned(self, request, pk=None):
+        message = {}
+        if pk:
+            game = Game.objects.get(pk=pk)
+            message = {'game': game.name}
+        return Response(message, status=status.HTTP_200_OK)
 
 
 class SessionViewSet(viewsets.ModelViewSet):

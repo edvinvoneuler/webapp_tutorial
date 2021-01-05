@@ -12,7 +12,7 @@ class GameSerializer(serializers.ModelSerializer):
 class PlayerMiniSerializer(serializers.ModelSerializer):
     class Meta:
         model = Player
-        fields = ['id', 'name']
+        fields = ['id', 'nickname']
 
 
 class GameOwnershipSerializer(serializers.ModelSerializer):
@@ -22,7 +22,7 @@ class GameOwnershipSerializer(serializers.ModelSerializer):
 
 
 class SessionSerializer(serializers.ModelSerializer):
-    players = PlayerMiniSerializer(many=True)
+    participating_players = PlayerMiniSerializer(many=True)
 
     class Meta:
         model = Session
@@ -32,7 +32,7 @@ class SessionSerializer(serializers.ModelSerializer):
 class PlayerSessionLinkSerializer(serializers.ModelSerializer):
     class Meta:
         model = PlayerSessionLink
-        fields = ['player', 'game']
+        fields = ['player', 'session']
 
 
 class PlayerSerializer(serializers.ModelSerializer):
@@ -41,4 +41,4 @@ class PlayerSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Player
-        fields = ['id', 'owned_games', 'sessions', 'name']
+        fields = ['id', 'owned_games', 'sessions', 'nickname']

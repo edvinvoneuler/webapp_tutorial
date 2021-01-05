@@ -17,10 +17,15 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 from rest_framework.authtoken.views import obtain_auth_token
-from demo.views import first
+from api.views import *
 
 router = routers.DefaultRouter()
+router.register('games', GameViewSet)
+router.register('players', PlayerViewSet)
+router.register('game-ownership', GameOwnershipViewSet)
+router.register('sessions', SessionViewSet)
+router.register('player-session-link', PlayerSessionLinkViewSet)
 
 urlpatterns = [
-    path('new/', first),
+    path('', include(router.urls)),
 ]

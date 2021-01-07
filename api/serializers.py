@@ -1,44 +1,47 @@
 from rest_framework import serializers
 
-from api.models import Player, Game, GameOwnership, Session, PlayerSessionLink
+from api.models import Game, GameOwnership, Session, PlayerSessionLink
+from django.contrib.auth.models import User
 
 
 class GameSerializer(serializers.ModelSerializer):
     class Meta:
         model = Game
-        fields = ['id', 'name', 'steam_app_id']
+        fields = ['id', 'name', 'steam_app_id', 'no_of_owners', 'avg_rating']
 
 
-class PlayerMiniSerializer(serializers.ModelSerializer):
+class UserMiniSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Player
-        fields = ['id', 'nickname']
+        model = User
+        fields = ['id', 'username']
 
 
 class GameOwnershipSerializer(serializers.ModelSerializer):
     class Meta:
         model = GameOwnership
-        fields = ['id', 'player', 'game', 'rating']
+        fields = ['id', 'user', 'game', 'rating']
 
 
 class SessionSerializer(serializers.ModelSerializer):
-    participating_players = PlayerMiniSerializer(many=True)
+    users = UserMiniSerializer(many=True)
 
     class Meta:
         model = Session
-        fields = ['id', 'game', 'participating_players', 'start', 'end']
+        fields = ['id', 'game', 'users', 'start', 'end']
 
 
 class PlayerSessionLinkSerializer(serializers.ModelSerializer):
+    user = UserMiniSerializer(many=False)
+
     class Meta:
         model = PlayerSessionLink
-        fields = ['player', 'session']
+        fields = ['user', 'session']
 
 
-class PlayerSerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     sessions = SessionSerializer(many=True)
     owned_games = GameSerializer(many=True)
 
     class Meta:
-        model = Player
-        fields = ['id', 'owned_games', 'sessions', 'nickname']
+        model = User
+        fields = ['id', 'owned_games', 'sessions', 'username']

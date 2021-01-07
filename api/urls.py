@@ -21,7 +21,7 @@ from api.views import *
 
 router = routers.DefaultRouter()
 router.register('games', GameViewSet)
-router.register('players', PlayerViewSet)
+router.register('users', UserViewSet)
 router.register('game-ownership', GameOwnershipViewSet)
 router.register('sessions', SessionViewSet)
 router.register('player-session-link', PlayerSessionLinkViewSet)

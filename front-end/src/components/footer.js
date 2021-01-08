@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {CtxConsumer} from '../index';
 
 class Footer extends Component {
 
@@ -22,19 +23,12 @@ class Footer extends Component {
     };
 
     render(){
-
-        const animals = ['cat', 'dog', 'horse'];
-
         return (
             <div>
-                { animals.map( animal => { return <p>animal</p>}) }
-                <input value={this.state.name} onChange={this.changed} type="text"></input>
-                <h2 onClick={this.createAlert}>
-                    {this.props.signature}
-                </h2>
-
-                { this.state.age === 27 ? "yes" : "no" }
-
+                <h1>hello I am a footer</h1>
+                <CtxConsumer>
+                    {value => (value.animals.map( animal => {return <p key={animal}>{animal}</p> }))}
+                </CtxConsumer>
             </div>
         )
     }

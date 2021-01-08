@@ -1,6 +1,8 @@
 import './App.css';
 import {Header} from './components/header';
 import Footer from './components/footer';
+import styled from 'styled-components';
+import Numbers from './components/numbers';
 
 function OurText(){
   return <p>This is our text</p>
@@ -9,6 +11,11 @@ function OurText(){
 function createAlert() {
   alert("Thanks for clicking me.")
 }
+
+const Paragraph = styled.p`
+  font-size: 2em;
+  color: green;
+`;
 
 function ShowMessage(props){
   if(props.toShow){
@@ -26,7 +33,9 @@ function App() {
       </p>
       <OurText/>
       <OurText/>
+      <Paragraph>VERY COOL</Paragraph>
       <OurText/>
+      <Numbers/>
       <ShowMessage toShow={true}/>
       <Footer signature="Goodbye from Edvin"/>
     </div>

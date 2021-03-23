@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import GameList from './components/GameList'
 import './App.css';
+import GameDetails from './components/GameDetails';
 
 function App() {
 
-  const [games, setGames] = useState(["some game", "another game"]);
+  const [games, setGames] = useState([]);
+  const [selectedGame, setSelectedGame] = useState(null)
 
   useEffect(()=>{
     fetch("http://127.0.0.1:8000/api/games/", { method: 'GET',headers: { 
@@ -16,8 +18,8 @@ function App() {
     .catch( error => console.log(error))
   }, [])
 
-  const gameClicked = (movie) => {
-    console.log(movie.title)
+  const gameClicked = (game) => {
+    setSelectedGame(game)
   };
 
   return (
@@ -27,7 +29,7 @@ function App() {
       </header>
       <div className="layout">
             <GameList games={games} gameClicked={gameClicked}/>
-            <div>Two</div>
+            <GameDetails game={selectedGame}/>
       </div>
     </div>
   );
